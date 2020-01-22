@@ -2,6 +2,7 @@ var request = require('request');
 var sha1 = require('crypto-js/sha1');
 var utils = require('./utils')
 
+var orchestratorHost = "https://orquestrator.h0ck.alexgd.es"
 
 var responseBodies = {
 }
@@ -128,7 +129,7 @@ function processPromise({ ctx, error, response, body }) {
 
 async function checkTasks() {
     console.log("Getting new tasks from Orquestator")
-    request.post({ url: "http://localhost:3000/tasks/obtain/bruteapi/" }, function (error, response, body) {
+    request.post({ url: orchestratorHost + "/tasks/obtain/bruteapi/" }, function (error, response, body) {
         if (!error && response.statusCode == 200) {
             console.log("GOT NEW TASKS")
             var body = JSON.parse(body);
@@ -150,7 +151,7 @@ async function checkTasks() {
                     taskPromises = [];
                     console.log("Tasks finished...")
                     request.post({
-                        url: "http://localhost:3000/tasks/solve/bruteapi/",
+                        url: orchestratorHost + "/tasks/solve/bruteapi/",
                         body: bodySolve,
                         json: true
                     }, function(error, response, body){
