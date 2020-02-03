@@ -2,7 +2,7 @@ var request = require('request');
 var sha1 = require('crypto-js/sha1');
 var utils = require('./utils')
 
-var orchestratorHost = "https://orquestrator.h0ck.alexgd.es"
+var orchestratorHost = "https://orchestrator.h0ck.alexgd.es"
 
 var responseBodies = {
 }
@@ -82,7 +82,7 @@ async function createPromiseForContext(context) {
         var ctx = context;
         request(options).on("error", function(e){
             console.log("ERROR: " + e);
-            resolve({ ctx, error, response, body })
+            resolve({ ctx, e, response, body })
         }).on("response", function(response){
             var body = response.body;
             var error = null;
